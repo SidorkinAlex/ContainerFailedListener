@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 )
 
+const ConfigPath = "/etc/CyclicCommandCheckerAndExecutive/config.json"
+
 type Config []Command
 
 // Config структура для хранения конфигурации
@@ -28,7 +30,7 @@ func (config *Config) create(configPath string) {
 func CreateConfig(configPath string) Config {
 	var config Config
 	if configPath == "" {
-		configPath = "/etc/ContainerFailedListener/config.json"
+		configPath = ConfigPath
 	}
 	dirPath := filepath.Dir(configPath)
 

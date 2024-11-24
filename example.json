@@ -1,0 +1,22 @@
+[
+  {
+    "checkingCommand": "cat /path/to/your/file.txt | tr -d '\n'",
+    "interval": 5,
+    "branchCommand": [
+      {
+        "resultExecution": "success",
+        "commands": [
+          "echo 'Command executed successfully.'",
+          "echo '' > /path/to/your/file.txt"
+        ]
+      },
+      {
+        "resultExecution": "failure",
+        "commands": [
+          "log_error",
+          "send_alert"
+        ]
+      }
+    ]
+  }
+]

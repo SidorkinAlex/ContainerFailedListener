@@ -8,6 +8,7 @@ import (
 
 type CliParams struct {
 	Action string
+	Debug  bool
 }
 
 const (
@@ -23,12 +24,22 @@ func NewCliParams() *CliParams {
 	var start bool
 	var createJob bool
 	var restart bool
+	var debug bool
 
 	flag.BoolVar(&stop, "stop", false, "set this param to stopping demon")
+	flag.BoolVar(&debug, "debug", false, "set this param to write logs executing")
 	flag.BoolVar(&start, "start", false, "set this param from start program")
 	flag.BoolVar(&createJob, "create-job", false, "set this param from start program")
 	flag.BoolVar(&restart, "restart", false, "set this param from start program")
-	if stop {
+
+	flag.Parse()
+
+	if debug {
+		c.Debug = true
+	} else {
+		c.Debug = false
+	}
+	if start {
 		c.Action = Start
 	}
 	if stop {
@@ -41,8 +52,9 @@ func NewCliParams() *CliParams {
 		c.Action = Restart
 	}
 	if c.Action == "" {
-		log.Fatal("To run the program, use one of the keys -stop, -start, -create-job, -restart is required.")
+		c.Action = Start
 	}
+	log.Println(c)
 	return &c
 }
 func (c CliParams) StartAction() {

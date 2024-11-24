@@ -83,3 +83,12 @@ func ReadFile(filename string) string {
 
 	return fileContent
 }
+
+func CheckAndCreatDir(dirPath string) {
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		err := os.MkdirAll(dirPath, os.ModePerm)
+		if err != nil {
+			log.Fatalf("Error creating config dirrectory: %v\n", err)
+		}
+	}
+}
