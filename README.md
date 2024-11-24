@@ -2,8 +2,6 @@
 
 ## Description
 
-### English
-
 **CyclicCommandCheckerAndExecutive** is a Go-based application designed to cyclically execute commands and manage their execution based on predefined conditions. It offers functionality to start, stop, restart, and create jobs through command-line interface parameters. The application can run as a daemon, ensuring continuous operation and monitoring.
 
 #### Key Features
@@ -81,7 +79,7 @@ sudo ./build/CyclicCommandCheckerAndExecutive.0.0.1
 4. **Restart the Application**: Use `-restart` parameter to restart the application.
 5. **Create a Job**: Use `-create-job` parameter to create new job entries.
 
-### Русский
+### Описание
 
 **CyclicCommandCheckerAndExecutive** — это приложение на языке Go, предназначенное для циклического выполнения команд и управления их выполнением на основе заранее заданных условий. Оно предоставляет функционал для запуска, остановки, перезапуска и создания заданий через параметры командной строки. Программа может работать в режиме демона, обеспечивая непрерывную работу и мониторинг.
 
