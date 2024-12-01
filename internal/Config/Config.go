@@ -15,12 +15,14 @@ type Config []Command
 
 // Config структура для хранения конфигурации
 type Command struct {
-	Command       string `json:"checkingCommand"`
-	Interval      int    `json:"interval"`
+	Command  string `json:"checkingCommand"`
+	Interval int    `json:"interval"`
+
 	BranchCommand []BranchResultExecution
 }
 type BranchResultExecution struct {
 	ResultExecution string   `json:"resultExecution"`
+	TypeOfMatch     string   `json:"typeOfMatch"`
 	Commands        []string `json:"commands"`
 }
 
@@ -50,5 +52,26 @@ func CreateConfig(configPath string) Config {
 		fmt.Println(err)
 		return nil
 	}
+	validationConfig(config)
+
 	return config
+}
+
+func validationConfig(config Config) {
+	validTypes := map[string]struct{}{
+		"equival":               {},
+		"not_equival":           {},
+		"included_in_substring": {},
+		"more":                  {},
+		"less":                  {},
+		"":                      {},
+	}
+
+	for _, command := range config {
+		for _, branch := range command.BranchCommand {
+			if _, ok := validTypes[branch.TypeOfMatch]; !ok {
+				log.Fatalln("Invalid TypeOfMatch: %s in command: %s\n", branch.TypeOfMatch, command.Command)
+			}
+		}
+	}
 }
