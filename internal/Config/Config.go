@@ -26,6 +26,13 @@ type BranchResultExecution struct {
 	Commands        []string `json:"commands"`
 }
 
+const Equal = "equal"
+const NotEqual = "not_equal"
+const IncludedInString = "included_in_string"
+const NotIncludedInString = "not_included_in_string"
+const More = "more"
+const Less = "less"
+
 func (config *Config) create(configPath string) {
 
 }
@@ -59,18 +66,19 @@ func CreateConfig(configPath string) Config {
 
 func validationConfig(config Config) {
 	validTypes := map[string]struct{}{
-		"equival":               {},
-		"not_equival":           {},
-		"included_in_substring": {},
-		"more":                  {},
-		"less":                  {},
-		"":                      {},
+		Equal:               {},
+		NotEqual:            {},
+		IncludedInString:    {},
+		NotIncludedInString: {},
+		More:                {},
+		Less:                {},
+		"":                  {},
 	}
 
 	for _, command := range config {
 		for _, branch := range command.BranchCommand {
 			if _, ok := validTypes[branch.TypeOfMatch]; !ok {
-				log.Fatalln("Invalid TypeOfMatch: %s in command: %s\n", branch.TypeOfMatch, command.Command)
+				log.Fatalf("Invalid TypeOfMatch: %s in command: %s\n", branch.TypeOfMatch, command.Command)
 			}
 		}
 	}
